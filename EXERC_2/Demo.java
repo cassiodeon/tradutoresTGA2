@@ -11,7 +11,8 @@ public class Demo {
 			}
 
 			for (int i = 0; i < x; i++) {
-				
+				x = (x < 3?0:1);
+				//x = (x < 3?0:1);
 			}
 		}catch (NullPointerException nexc) {
 
