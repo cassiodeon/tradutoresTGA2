@@ -27,29 +27,32 @@ public class AnalysisJavaListener extends JavaBaseListener {
     @Override
     public void enterStatement(JavaParser.StatementContext ctx) {
         if(ctx.getStart().getType() == parser.IF ||
-            ctx.getStart().getType() == parser.SWITCH ||
             ctx.getStart().getType() == parser.FOR ||
             ctx.getStart().getType() == parser.DO || 
             ctx.getStart().getType() == parser.WHILE
             ){
             complexidadeCiclomatica++;
         }
-
-        TokenStream tokens = parser.getTokenStream();
     }
 
     @Override
     public void enterCatchClause(JavaParser.CatchClauseContext ctx) {
+        //+1 para cada clausula catch
         complexidadeCiclomatica++;
     }
 
     @Override
     public void enterExpression(JavaParser.ExpressionContext ctx) {
         for (TerminalNode terminal : ctx.getTokens(parser.QUESTION)) {
+            // +1 para cada if ternário
             complexidadeCiclomatica++;
         }
-        
     } 
     
-
+    @Override
+    public void enterSwitchLabel(JavaParser.SwitchLabelContext ctx) {
+        if(ctx.getStart().getType() == parser.CASE){
+            complexidadeCiclomatica++;
+        }
+    }
 }
