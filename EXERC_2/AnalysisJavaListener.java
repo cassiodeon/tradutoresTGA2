@@ -5,6 +5,8 @@ import org.antlr.v4.runtime.tree.*;
 public class AnalysisJavaListener extends JavaBaseListener {
     JavaParser parser;
     int complexidadeCiclomatica = 1;
+    int aninhamentoMetodo = 0;
+    int aninhamentoAtual = 0;
     public AnalysisJavaListener(JavaParser parser) {this.parser = parser;}
     /** Listen to matches of classDeclaration */
     @Override
@@ -17,11 +19,14 @@ public class AnalysisJavaListener extends JavaBaseListener {
     public void enterMethodDeclaration(JavaParser.MethodDeclarationContext ctx){
         System.out.println(" Metodo "+ ctx.Identifier());
         complexidadeCiclomatica = 1;
+        aninhamentoMetodo = 0;
+        aninhamentoAtual = 0;
     }
 
     @Override 
     public void exitMethodDeclaration(JavaParser.MethodDeclarationContext ctx) {
         System.out.println("\t- Complexidade Ciclomatica: "+ complexidadeCiclomatica);
+        System.out.println("\t- Nivel Aninhamento: "+ aninhamentoMetodo);
     }
 
     @Override
@@ -54,5 +59,18 @@ public class AnalysisJavaListener extends JavaBaseListener {
         if(ctx.getStart().getType() == parser.CASE){
             complexidadeCiclomatica++;
         }
+    }
+
+    @Override 
+    public void enterBlock(JavaParser.BlockContext ctx) {
+        aninhamentoAtual ++;
+        if (aninhamentoMetodo < aninhamentoAtual){
+            aninhamentoMetodo = aninhamentoAtual;
+        }
+    }
+
+    @Override
+    public void exitBlock(JavaParser.BlockContext ctx) {
+        aninhamentoAtual--;
     }
 }

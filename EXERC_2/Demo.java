@@ -51,4 +51,29 @@ public class Demo {
 	List<Map<String, Integer>>[] h() { 
 		return null; 
 	}
+
+	void testeAninhamento2(int a, int b){
+
+		if (a > 10) {
+			h();
+		}
+		if (b < 5) {
+			g();
+		}
+		while (a<b){
+			f(a,"b");
+		}
+	}
+
+	void testeAninhamento4(int a, int b){
+		if (a > 10 ){
+			h();
+			if (b < 5){
+				g();
+				while (a<b){
+					f(a,"b");
+				}
+			}
+		}
+	}
 }
