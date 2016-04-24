@@ -57,14 +57,14 @@ public class AnalysisJavaListener extends JavaBaseListener {
         }
 
         for (TerminalNode terminal : ctx.getTokens(parser.LPAREN)) {
-            /*Tentativa de obter o nome dos metodos. Quando o metodo chamado é somente o nome, exemplo: facaIsso(), funciona! Porém quando é classeX.facaY() não funciona.
-            JavaParser.ExpressionContext exp = ctx.expression(0);
+            /*
+            Obtem o nome dos metodos chamados
             TokenStream tokens = parser.getTokenStream();
-            String teste = "nada";
-            if ( exp.primary()!=null ) {
-                teste = tokens.getText(exp.primary());
+            String nomeMetodo = "nada";
+            if ( ctx.expression(0)!=null ) {
+                nomeMetodo = tokens.getText(ctx.expression(0));
             }
-            System.out.println(teste);
+            System.out.println(nomeMetodo);
             */
             fanOut++;
         }
