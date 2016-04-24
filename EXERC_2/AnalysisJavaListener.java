@@ -7,6 +7,7 @@ public class AnalysisJavaListener extends JavaBaseListener {
     int complexidadeCiclomatica = 1;
     int aninhamentoMetodo = 0;
     int aninhamentoAtual = 0;
+    int fanOut = 0;
     public AnalysisJavaListener(JavaParser parser) {this.parser = parser;}
     /** Listen to matches of classDeclaration */
     @Override
@@ -21,12 +22,14 @@ public class AnalysisJavaListener extends JavaBaseListener {
         complexidadeCiclomatica = 1;
         aninhamentoMetodo = 0;
         aninhamentoAtual = 0;
+        fanOut = 0;
     }
 
     @Override 
     public void exitMethodDeclaration(JavaParser.MethodDeclarationContext ctx) {
         System.out.println("\t- Complexidade Ciclomatica: "+ complexidadeCiclomatica);
         System.out.println("\t- Nivel Aninhamento: "+ aninhamentoMetodo);
+        System.out.println("\t- Fan Out: "+ fanOut);
     }
 
     @Override
@@ -51,6 +54,19 @@ public class AnalysisJavaListener extends JavaBaseListener {
         for (TerminalNode terminal : ctx.getTokens(parser.QUESTION)) {
             // +1 para cada if ternário
             complexidadeCiclomatica++;
+        }
+
+        for (TerminalNode terminal : ctx.getTokens(parser.LPAREN)) {
+            /*Tentativa de obter o nome dos metodos. Quando o metodo chamado é somente o nome, exemplo: facaIsso(), funciona! Porém quando é classeX.facaY() não funciona.
+            JavaParser.ExpressionContext exp = ctx.expression(0);
+            TokenStream tokens = parser.getTokenStream();
+            String teste = "nada";
+            if ( exp.primary()!=null ) {
+                teste = tokens.getText(exp.primary());
+            }
+            System.out.println(teste);
+            */
+            fanOut++;
         }
     } 
     

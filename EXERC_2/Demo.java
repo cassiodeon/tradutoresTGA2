@@ -19,6 +19,12 @@ public class Demo {
 			switch (diaDaSemana) {
 				case 1:
 					System.out.println("Domingo");
+					if(y == "2"){
+						y = "3";
+						//if(x > y){
+							//x = y;
+						//}
+					}
 					break;
 				case 2:
 					System.out.println("Segunda-feira");
