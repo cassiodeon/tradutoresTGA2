@@ -64,7 +64,7 @@ public class Demo {
         if (a > 10) {
             h();
             g();
-            z();
+            f(a,"b");
         }
         if (b < 5) {
             g();

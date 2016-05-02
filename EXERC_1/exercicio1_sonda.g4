@@ -1,3 +1,6 @@
+/**
+Autores: Cássio Deon e Roger Calderini
+**/
 grammar exercicio1_sonda;
 
 instrucao:  (comando NEWLINE*)* ;

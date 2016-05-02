@@ -3,6 +3,10 @@ import org.antlr.v4.runtime.misc.Interval;
 import org.antlr.v4.runtime.tree.*;
 import java.util.ArrayList;
 
+/**
+Autores: Cássio Deon e Roger Calderini
+**/
+
 public class AnalysisJavaListener extends JavaBaseListener {
     JavaParser parser;
     int complexidadeCiclomatica = 1;
